@@ -1,4 +1,4 @@
-CREATE TABLE autores (
+CREATE TABLE Autores (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nome TEXT,
     nascimento DATE,
@@ -6,24 +6,24 @@ CREATE TABLE autores (
     nacionalidade TEXT
 );
 
-CREATE TABLE livros (
+CREATE TABLE Livros (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     titulo TEXT,
     ano INTEGER,
     assunto TEXT,
     autor_id INTEGER,
     quantidade INTEGER,
-    FOREIGN KEY (autor_id) REFERENCES autores(id)
+    FOREIGN KEY (autor_id) REFERENCES Autores(id)
 );
 
-CREATE TABLE secao (
+CREATE TABLE Secao (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     livro_id INTEGER,
     genero TEXT,
-    FOREIGN KEY (livro_id) REFERENCES livros(id)
+    FOREIGN KEY (livro_id) REFERENCES Livros(id)
 );
 
-CREATE TABLE leitores (
+CREATE TABLE Leitores (
     cpf TEXT PRIMARY KEY,
     nome TEXT,
     email TEXT,
@@ -32,20 +32,20 @@ CREATE TABLE leitores (
     idade INTEGER
 );
 
-CREATE TABLE reserva (
+CREATE TABLE Reserva (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     livro_id INTEGER UNIQUE,
     leitor_id TEXT,
-    FOREIGN KEY (livro_id) REFERENCES livros(id),
-    FOREIGN KEY (leitor_id) REFERENCES leitores(cpf)
+    FOREIGN KEY (livro_id) REFERENCES Livros(id),
+    FOREIGN KEY (leitor_id) REFERENCES Leitores(cpf)
 );
 
-CREATE TABLE emprestimos (
+CREATE TABLE Emprestimos (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     livro_id INTEGER UNIQUE,
     leitor_id TEXT,
     dataemprestimo DATE,
     datadevolucao DATE,
-    FOREIGN KEY (livro_id) REFERENCES livros(id),
-    FOREIGN KEY (leitor_id) REFERENCES leitores(cpf)
+    FOREIGN KEY (livro_id) REFERENCES Livros(id),
+    FOREIGN KEY (leitor_id) REFERENCES Leitores(cpf)
 );
