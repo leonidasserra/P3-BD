@@ -42,7 +42,7 @@ VALUES
     (5, '11122233344');
 
 -- Inserção de dados na tabela Emprestimos
-INSERT INTO Emprestimos (livro_id, leitor_id, dataemprestimo, datadevolucao)
+INSERT INTO Emprestimo (livro_id, leitor_id, dataemprestimo, datadevolucao)
 VALUES 
     (1, '12345678900', '2024-01-01', '2024-01-15'),
     (2, '98765432100', '2024-01-05', '2024-01-20'),

@@ -1,4 +1,4 @@
--- Consultas de  Seleção
+-- Consultas de Seleção
 
 -- Selecionar todos os autores
 SELECT * FROM Autores;
@@ -17,10 +17,10 @@ INNER JOIN Livros ON secao.livro_id = livros.id;
 SELECT * FROM Leitores;
 
 -- Selecionar todos os empréstimos com detalhes de livro e leitor
-SELECT emprestimos.*, livros.titulo AS titulolivro, leitores.nome AS nomeleitor
-FROM Emprestimos
-INNER JOIN Livros ON emprestimos.livro_id = livros.id
-INNER JOIN Leitores ON emprestimos.leitor_id = leitores.cpf;
+SELECT emprestimo.*, livros.titulo AS titulolivro, leitores.nome AS nomeleitor
+FROM Emprestimo AS emprestimo
+INNER JOIN Livros ON emprestimo.livro_id = livros.id
+INNER JOIN Leitores ON emprestimo.leitor_id = leitores.cpf;
 
 -- Selecionar o número de reservas por livro, ordenado por quantidade de reservas
 SELECT livros.id, livros.titulo, COUNT(reserva.id) AS numeroreservas
@@ -83,31 +83,31 @@ GROUP BY (idade / 10) * 10
 ORDER BY faixaetaria;
 
 -- Selecionar todos os empréstimos atuais (em que a data de devolução é NULL)
-SELECT emprestimos.*, livros.titulo AS titulolivro, leitores.nome AS nomeleitor
-FROM Emprestimos
-INNER JOIN Livros ON emprestimos.livro_id = livros.id
-INNER JOIN Leitores ON emprestimos.leitor_id = leitores.cpf
-WHERE emprestimos.datadevolucao IS NULL;
+SELECT emprestimo.*, livros.titulo AS titulolivro, leitores.nome AS nomeleitor
+FROM Emprestimo AS emprestimo
+INNER JOIN Livros ON emprestimo.livro_id = livros.id
+INNER JOIN Leitores ON emprestimo.leitor_id = leitores.cpf
+WHERE emprestimo.datadevolucao IS NULL;
 
 -- Selecionar todos os empréstimos devolvidos (em que a data de devolução não é NULL)
-SELECT emprestimos.*, livros.titulo AS titulolivro, leitores.nome AS nomeleitor
-FROM Emprestimos
-INNER JOIN Livros ON emprestimos.livro_id = livros.id
-INNER JOIN Leitores ON emprestimos.leitor_id = leitores.cpf
-WHERE emprestimos.datadevolucao IS NOT NULL;
+SELECT emprestimo.*, livros.titulo AS titulolivro, leitores.nome AS nomeleitor
+FROM Emprestimo AS emprestimo
+INNER JOIN Livros ON emprestimo.livro_id = livros.id
+INNER JOIN Leitores ON emprestimo.leitor_id = leitores.cpf
+WHERE emprestimo.datadevolucao IS NOT NULL;
 
 -- Selecionar leitores com mais de 3 empréstimos em andamento
-SELECT leitores.*, COUNT(emprestimos.id) AS numeroemprestimos
+SELECT leitores.*, COUNT(emprestimo.id) AS numeroemprestimos
 FROM Leitores
-INNER JOIN Emprestimos ON leitores.cpf = emprestimos.leitor_id
-WHERE emprestimos.datadevolucao IS NULL
+INNER JOIN Emprestimo AS emprestimo ON leitores.cpf = emprestimo.leitor_id
+WHERE emprestimo.datadevolucao IS NULL
 GROUP BY leitores.cpf
-HAVING COUNT(emprestimos.id) > 3;
+HAVING COUNT(emprestimo.id) > 3;
 
 -- Selecionar o número de empréstimos por livro, ordenado por quantidade de empréstimos
-SELECT livros.id, livros.titulo, COUNT(emprestimos.id) AS numeroemprestimos
+SELECT livros.id, livros.titulo, COUNT(emprestimo.id) AS numeroemprestimos
 FROM Livros
-LEFT JOIN Emprestimos ON livros.id = emprestimos.livro_id
+LEFT JOIN Emprestimo AS emprestimo ON livros.id = emprestimo.livro_id
 GROUP BY livros.id, livros.titulo
 ORDER BY numeroemprestimos DESC;
 
@@ -116,9 +116,9 @@ SELECT leitores.*
 FROM Leitores
 WHERE NOT EXISTS (
     SELECT 1
-    FROM Emprestimos
-    WHERE emprestimos.leitor_id = leitores.cpf
-    AND emprestimos.datadevolucao IS NULL
+    FROM Emprestimo AS emprestimo
+    WHERE emprestimo.leitor_id = leitores.cpf
+    AND emprestimo.datadevolucao IS NULL
 );
 
 -- Inserção de Dados
@@ -144,7 +144,7 @@ INSERT INTO Reserva (livro_id, leitor_id)
 VALUES (6, '22233344455');
 
 -- Inserir um novo empréstimo
-INSERT INTO Emprestimos (livro_id, leitor_id, dataemprestimo, datadevolucao)
+INSERT INTO Emprestimo (livro_id, leitor_id, dataemprestimo, datadevolucao)
 VALUES (6, '22233344455', '2024-01-20', '2024-02-03');
 
 -- Atualização de Dados
@@ -160,7 +160,7 @@ SET email = 'ana.silva.novo@email.com'
 WHERE cpf = '11122233344';
 
 -- Atualizar a data de devolução de um empréstimo
-UPDATE Emprestimos
+UPDATE Emprestimo
 SET datadevolucao = '2024-01-28'
 WHERE livro_id = 3 AND leitor_id = '55566677788';
 
@@ -187,5 +187,5 @@ DELETE FROM Reserva
 WHERE livro_id = 1 AND leitor_id = '12345678900';
 
 -- Excluir um empréstimo
-DELETE FROM Emprestimos
+DELETE FROM Emprestimo
 WHERE livro_id = 1 AND leitor_id = '12345678900';
