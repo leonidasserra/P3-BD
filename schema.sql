@@ -40,7 +40,7 @@ CREATE TABLE Reserva (
     FOREIGN KEY (leitor_id) REFERENCES Leitores(cpf)
 );
 
-CREATE TABLE Emprestimos (
+CREATE TABLE Emprestimo (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     livro_id INTEGER UNIQUE,
     leitor_id TEXT,
