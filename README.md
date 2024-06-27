@@ -8,16 +8,16 @@ Este sistema de biblioteca utiliza um banco de dados SQLite para armazenar infor
    - Certifique-se de ter o SQLite instalado em seu ambiente de desenvolvimento. Você pode baixá-lo em [SQLite Download](https://www.sqlite.org/download.html).
 
 2. **Criação do Banco de Dados:**
-   - Execute o script `biblioteca.sql` para criar as tabelas e definir a estrutura do banco de dados.
+   - Execute o script `schema.sql` para criar as tabelas e definir a estrutura do banco de dados.
 
 3. **Inserção de Dados Iniciais:**
-   - Execute o script `insercao_dados.sql` para inserir dados de exemplo nas tabelas.
+   - Execute o script `insert_data.sql` para inserir dados de exemplo nas tabelas.
 
 ## Execução das Consultas
 
 Para realizar consultas ao banco de dados, você pode utilizar o SQLite diretamente ou integrá-lo ao seu sistema através de uma linguagem de programação compatível.
 
-Exemplos de consultas disponíveis no arquivo `consultas.sql` incluem:
+Exemplos de consultas disponíveis no arquivo `query.sql` incluem:
 - Selecionar todos os autores, livros, seções, leitores, reservas e empréstimos.
 - Consultas avançadas como número de reservas por livro, autores com mais de 10 reservas, entre outras.
 
