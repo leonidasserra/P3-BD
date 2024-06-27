@@ -1,40 +1,40 @@
 CREATE TABLE autores (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    Nome TEXT,
-    Nascimento DATE,
-    Falecimento DATE,
-    Nacionalidade TEXT
+    nome TEXT,
+    nascimento DATE,
+    falecimento DATE,
+    nacionalidade TEXT
 );
 
 CREATE TABLE livros (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    Titulo TEXT,
-    Ano INTEGER,
-    Assunto TEXT,
+    titulo TEXT,
+    ano INTEGER,
+    assunto TEXT,
     autor_id INTEGER,
-    Quantidade INTEGER,
+    quantidade INTEGER,
     FOREIGN KEY (autor_id) REFERENCES autores(id)
 );
 
 CREATE TABLE secao (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     livro_id INTEGER,
-    Genero TEXT,
+    genero TEXT,
     FOREIGN KEY (livro_id) REFERENCES livros(id)
 );
 
 CREATE TABLE leitores (
     cpf TEXT PRIMARY KEY,
-    Nome TEXT,
-    Email TEXT,
+    nome TEXT,
+    email TEXT,
     telefone TEXT,
-    DataNascimento DATE,
-    Idade INTEGER
+    datanascimento DATE,
+    idade INTEGER
 );
 
 CREATE TABLE reserva (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    livro_id INTEGER,
+    livro_id INTEGER UNIQUE,
     leitor_id TEXT,
     FOREIGN KEY (livro_id) REFERENCES livros(id),
     FOREIGN KEY (leitor_id) REFERENCES leitores(cpf)
@@ -42,10 +42,10 @@ CREATE TABLE reserva (
 
 CREATE TABLE emprestimos (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    livro_id INTEGER,
+    livro_id INTEGER UNIQUE,
     leitor_id TEXT,
-    DataEmprestimo DATE,
-    DataDevolucao DATE,
+    dataemprestimo DATE,
+    datadevolucao DATE,
     FOREIGN KEY (livro_id) REFERENCES livros(id),
     FOREIGN KEY (leitor_id) REFERENCES leitores(cpf)
 );

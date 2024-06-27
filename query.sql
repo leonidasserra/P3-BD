@@ -16,18 +16,11 @@ INNER JOIN livros ON secao.livro_id = livros.id;
 -- Selecionar todos os leitores
 SELECT * FROM leitores;
 
--- Selecionar todas as reservas com detalhes de livro e leitor
-SELECT reserva.*, livros.Titulo AS TituloLivro, leitores.Nome AS NomeLeitor
-FROM reserva
-INNER JOIN livros ON reserva.livro_id = livros.id
-INNER JOIN leitores ON reserva.leitor_id = leitores.cpf;
-
 -- Selecionar todos os empréstimos com detalhes de livro e leitor
 SELECT emprestimos.*, livros.Titulo AS TituloLivro, leitores.Nome AS NomeLeitor
 FROM emprestimos
 INNER JOIN livros ON emprestimos.livro_id = livros.id
 INNER JOIN leitores ON emprestimos.leitor_id = leitores.cpf;
-
 
 -- Selecionar o número de reservas por livro, ordenado por quantidade de reservas
 SELECT livros.id, livros.Titulo, COUNT(reserva.id) AS NumeroReservas
@@ -83,29 +76,11 @@ INNER JOIN secao ON livros.id = secao.livro_id;
 SELECT * FROM leitores
 WHERE Idade > 30;
 
--- Selecionar leitores que nasceram depois do ano 1990
-SELECT * FROM leitores
-WHERE DataNascimento > '1990-01-01';
-
 -- Selecionar o número de leitores por faixa etária (grupos de 10 anos)
 SELECT (Idade / 10) * 10 AS FaixaEtaria, COUNT(*) AS NumeroLeitores
 FROM leitores
 GROUP BY (Idade / 10) * 10
 ORDER BY FaixaEtaria;
-
--- Selecionar leitores que têm entre 20 e 30 anos
-SELECT * FROM leitores
-WHERE Idade BETWEEN 20 AND 30;
-
--- Selecionar os leitores mais jovens
-SELECT * FROM leitores
-ORDER BY DataNascimento DESC
-LIMIT 1;
-
--- Selecionar os leitores mais velhos
-SELECT * FROM leitores
-ORDER BY DataNascimento ASC
-LIMIT 1;
 
 -- Selecionar todos os empréstimos atuais (em que a data de devolução é NULL)
 SELECT emprestimos.*, livros.Titulo AS TituloLivro, leitores.Nome AS NomeLeitor
@@ -174,20 +149,10 @@ VALUES (6, '22233344455', '2024-01-20', '2024-02-03');
 
 -- Atualização de Dados
 
--- Atualizar a nacionalidade de um autor
-UPDATE autores
-SET Nacionalidade = 'Estadunidense'
-WHERE Nome = 'George Orwell';
-
 -- Atualizar a quantidade de exemplares de um livro
 UPDATE livros
 SET Quantidade = 20
 WHERE Titulo = 'Harry Potter e a Pedra Filosofal';
-
--- Atualizar o gênero de uma seção
-UPDATE secao
-SET Genero = 'Ficção Científica'
-WHERE livro_id = 3;
 
 -- Atualizar o email de um leitor
 UPDATE leitores
